@@ -1,0 +1,42 @@
+---
+import Base from '@/layouts/Base.astro';
+import Hero from '@/components/sections/Hero.astro';
+import WhatIDo from '@/components/sections/WhatIDo.astro';
+import FeaturedProjects from '@/components/sections/FeaturedProjects.astro';
+import StoryScroll from '@/components/sections/StoryScroll.astro';
+import Skills from '@/components/sections/Skills.astro';
+import Experience from '@/components/sections/Experience.astro';
+import Education from '@/components/sections/Education.astro';
+import GitHubProof from '@/components/sections/GitHubProof.astro';
+import ContactCTA from '@/components/sections/ContactCTA.astro';
+import FAQ from '@/components/sections/FAQ.astro';
+import { profile } from '@/data/profile';
+import { faqs } from '@/data/faq';
+import { faqSchema } from '@/utils/jsonld';
+---
+
+<Base
+  title={profile.name}
+  description={`${profile.name} — ${profile.title} based in Multan, Pakistan. ${profile.summary}`}
+  jsonLd={faqSchema(faqs)}
+>
+  {/* Plain-text AEO summary kept visible for AI search engines */}
+  <p class="sr-only">
+    Fazeel Khan is a full-stack developer and Computer Science student based in Multan, Pakistan,
+    available for internships, junior roles, and freelance projects. Skilled in React, Node.js,
+    Ruby on Rails, MongoDB, Firebase, TypeScript, Tailwind CSS, REST APIs, JWT authentication,
+    and Stripe checkout. Featured projects include Golden Art Frames, Imagine AI Fashion (collaborative),
+    POS Desktop, Pak Origin Export, NobleAcres, and ThinkBoard.
+  </p>
+
+  <Hero />
+  <WhatIDo />
+  <FeaturedProjects />
+  <StoryScroll />
+  <Skills />
+  <Experience />
+  <Education />
+  <GitHubProof />
+  <FAQ />
+  <ContactCTA />
+</Base>

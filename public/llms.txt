@@ -1,0 +1,67 @@
+# Fazeel Khan — Portfolio
+
+Fazeel Khan is a full-stack developer and Computer Science student based in Multan, Punjab, Pakistan. He builds responsive, practical web applications using React, Node.js, Ruby on Rails, MongoDB, Firebase, TypeScript, and Tailwind CSS, with a strong UI/UX sensibility from a graphic-design background.
+
+He is available for remote internships, junior full-stack roles, freelance projects, and collaborations.
+
+## Contact
+- Email: fazeelk2004@gmail.com
+- GitHub: https://github.com/fazeelk2004
+- LinkedIn: https://www.linkedin.com/in/fazeel-khan-387ab5340
+- Location: Multan, Punjab, Pakistan
+- Site: https://fazeelkhan.dev
+
+## Core skills
+- Frontend: React, Redux Toolkit, TypeScript, Tailwind CSS, Vite, Bootstrap 5, React Native
+- Backend: Node.js, Express.js, Ruby on Rails, REST APIs, JWT authentication
+- Database: MongoDB, Firebase, SQL, PostgreSQL/Supabase
+- Design: Adobe Photoshop, UI/UX, responsive web design, visual content design
+- Tools: Git, GitHub, Vercel, Netlify, Render, API integration
+
+## Education
+- Bahauddin Zakariya University, Multan — BS Computer Science (2022–2026), CGPA 3.47/4.00
+- KIPS College, Multan — FSc Pre-Engineering (2020–2022), Grade A
+
+## Experience
+- Operations & Media Volunteer, ZACKS (Feb 2025 — Present)
+- Graphic Designer, International Cricket Masters UK (Dec 2024 — Feb 2025) — 50+ assets, ~30% engagement boost
+- Full-Stack Developer Intern, TriCloud Technologies (Jun 2024 — Aug 2024) — ~25% load speed improvement, ~15% backend response improvement, Ruby on Rails
+
+## Featured projects
+
+### Golden Art Frames
+A full-stack MERN e-commerce platform for custom photo products (prints, frames, canvas, collages, wedding products). Includes in-browser product editor, Stripe checkout, JWT auth, dynamic pricing, and an admin dashboard for orders, products, blog, and analytics.
+Tech: MongoDB, Express, React, Node.js, Stripe, Tailwind CSS, Framer Motion, JWT.
+
+### Imagine AI Fashion Platform — Collaborative Project
+A collaborative AI fashion / image-generation platform Fazeel contributed to (frontend and backend features). The platform handles AI-generated fashion visuals, prompt-driven workflows, and image generation interfaces. Fazeel is not the sole owner.
+Repos: github.com/NVGEN/imagine-frontend · github.com/NVGEN/imagine-backend
+
+### POS Desktop
+A desktop point-of-sale and inventory management project by Fazeel Khan, focused on business software workflows, product management, stock tracking, and sales operations.
+Repo: github.com/fazeelk2004/POS-Desktop
+
+### Pak Origin Export
+A business/export website project by Fazeel Khan, focused on responsive frontend development, commercial presentation, product sections, and contact conversion.
+Repo: github.com/fazeelk2004/pakoriginexport
+
+### NobleAcres
+A real estate web application with React, Redux Toolkit, Firebase, and JWT authentication — listing creation, protected routes, and landlord/tenant interaction.
+
+### ThinkBoard
+A MERN note-taking application with full CRUD, REST API, toast notifications, and rate limiting.
+
+## Other projects
+- NeuraLearn (School Dashboard UI) — TypeScript / React / Next.js dashboard interface.
+- Chatbot AI — Python conversational chatbot project.
+- LMS Quiz AI Generated — JavaScript LMS/quiz app with AI-generated content concept.
+
+## Page map
+- / — Home
+- /about — About
+- /projects — All projects (filterable)
+- /projects/{slug} — Project case studies
+- /contact — Contact
+
+## Important note
+For collaborative work (Imagine AI Fashion Platform), the site clearly labels Fazeel's role as a contributor. He should not be presented as sole owner.

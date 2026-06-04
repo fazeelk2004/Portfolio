@@ -1,0 +1,87 @@
+---
+const cvHref = "/Fazeel_Khan_CV.pdf";
+---
+
+<a
+  id="floating-cv"
+  href={cvHref}
+  download
+  aria-label="Download CV"
+  class="floating-cv group fixed bottom-6 right-6 z-40 inline-flex items-center gap-2
+    rounded-full pl-4 pr-5 py-3 text-sm font-medium text-white
+    bg-primary shadow-glow border border-white/10
+    backdrop-blur-md transition-all duration-300 ease-out
+    hover:bg-primary/90 hover:-translate-y-0.5
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70
+    focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+  data-hidden="true"
+>
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+    class="transition-transform duration-200 group-hover:translate-y-0.5"
+  >
+    <path d="M12 3v12"></path>
+    <path d="m7 10 5 5 5-5"></path>
+    <path d="M5 21h14"></path>
+  </svg>
+  <span>Download CV</span>
+</a>
+
+<style>
+  .floating-cv {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+    pointer-events: none;
+  }
+  .floating-cv[data-hidden="false"] {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .floating-cv {
+      transition: opacity 0.2s ease;
+      transform: none;
+    }
+    .floating-cv[data-hidden="false"] {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  const setupFloatingCV = () => {
+    const el = document.getElementById("floating-cv");
+    if (!el) return;
+
+    const update = () => {
+      const threshold = Math.max(window.innerHeight * 0.6, 400);
+      const show = window.scrollY > threshold;
+      el.setAttribute("data-hidden", show ? "false" : "true");
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+
+    document.addEventListener(
+      "astro:before-swap",
+      () => {
+        window.removeEventListener("scroll", update);
+        window.removeEventListener("resize", update);
+      },
+      { once: true },
+    );
+  };
+
+  setupFloatingCV();
+  document.addEventListener("astro:page-load", setupFloatingCV);
+</script>

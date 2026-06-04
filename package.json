@@ -1,0 +1,40 @@
+{
+  "name": "fazeel-khan-portfolio",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portfolio website for Fazeel Khan — Full-Stack Developer & Creative Technologist",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^3.1.9",
+    "@iconify-json/lucide": "^1.2.18",
+    "@iconify-json/simple-icons": "^1.2.18",
+    "astro-icon": "^1.1.5",
+    "@astrojs/react": "^3.6.3",
+    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/tailwind": "^5.1.4",
+    "@react-three/drei": "^9.117.3",
+    "@react-three/fiber": "^8.17.10",
+    "astro": "^4.16.18",
+    "astro-robots-txt": "^1.0.0",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.20",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.33.5",
+    "tailwindcss": "^3.4.17",
+    "three": "^0.171.0",
+    "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@types/three": "^0.171.0"
+  }
+}

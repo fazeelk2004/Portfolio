@@ -1,0 +1,302 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    @apply bg-bg text-text;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply font-sans bg-bg text-text;
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+  }
+
+  ::selection {
+    background: rgba(109, 93, 251, 0.35);
+    color: #fff;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight text-text;
+  }
+
+  a {
+    @apply transition-colors;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary/70 ring-offset-2 ring-offset-bg rounded;
+  }
+
+  .skip-link {
+    @apply absolute left-3 -top-12 z-[100] px-3 py-2 rounded bg-primary text-white text-sm
+      focus:top-3 transition-all;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .glass {
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+    @apply border border-white/[0.07] backdrop-blur-sm rounded-2xl;
+  }
+
+  .glass-strong {
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    @apply border border-white/[0.09] backdrop-blur-md rounded-2xl;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs
+      bg-white/[0.04] border border-white/[0.08] text-muted
+      transition-all duration-200 hover:bg-white/[0.08] hover:text-text hover:-translate-y-0.5
+      hover:border-primary/40;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium
+      transition-all duration-200 select-none whitespace-nowrap;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary text-white hover:bg-primary/90 hover:shadow-glow;
+  }
+
+  .btn-ghost {
+    @apply btn bg-white/[0.04] text-text border border-white/[0.08]
+      hover:bg-white/[0.07] hover:border-white/15;
+  }
+
+  .btn-outline {
+    @apply btn bg-transparent text-text border border-white/15 hover:bg-white/[0.05];
+  }
+
+  .section {
+    @apply py-20 sm:py-28 relative;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-muted;
+  }
+
+  .eyebrow::before {
+    content: '';
+    @apply inline-block w-6 h-px bg-primary/70;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .8s ease, transform .8s ease;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .grid-bg {
+    background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+  }
+
+  .text-gradient {
+    background: linear-gradient(120deg, #F8FAFC 0%, #C4B7FF 45%, #7BD7FF 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Animated underline for text/nav links */
+  .link-underline {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding-bottom: 2px;
+  }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1.5px;
+    width: 100%;
+    background: linear-gradient(90deg, #6D5DFB, #00D4FF);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .35s cubic-bezier(.6,.05,.05,1);
+  }
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after,
+  .link-underline[aria-current="page"]::after {
+    transform: scaleX(1);
+  }
+  .link-underline[aria-current="page"]::after {
+    transform-origin: left;
+  }
+
+  /* Primary button: gradient + shimmer + arrow slide */
+  .btn-primary {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(120deg, #6D5DFB 0%, #6D5DFB 45%, #8478ff 100%);
+    isolation: isolate;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.18) 50%, transparent 100%);
+    transform: translateX(-120%);
+    transition: transform .75s cubic-bezier(.6,.05,.05,1);
+    z-index: -1;
+  }
+  .btn-primary:hover::before,
+  .btn-primary:focus-visible::before {
+    transform: translateX(120%);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 18px 50px -18px rgba(109,93,251,.7);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost,
+  .btn-outline {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-ghost::after,
+  .btn-outline::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(120deg, rgba(109,93,251,.0) 0%, rgba(0,212,255,.5) 50%, rgba(109,93,251,.0) 100%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    opacity: 0;
+    transition: opacity .35s ease;
+    pointer-events: none;
+  }
+  .btn-ghost:hover::after,
+  .btn-outline:hover::after,
+  .btn-ghost:focus-visible::after,
+  .btn-outline:focus-visible::after {
+    opacity: 1;
+  }
+
+  /* Arrow that slides on hover when button has [data-arrow] */
+  [data-arrow] .arrow {
+    transition: transform .35s cubic-bezier(.6,.05,.05,1);
+    display: inline-block;
+  }
+  [data-arrow]:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  /* Gradient border on hover for cards with .card-hover */
+  .card-hover {
+    position: relative;
+    isolation: isolate;
+  }
+  .card-hover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(109,93,251,.5), rgba(0,212,255,.35), transparent 60%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    opacity: 0;
+    transition: opacity .4s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .card-hover:hover::before { opacity: 1; }
+
+  /* Spotlight that follows cursor on hero / large surfaces */
+  .spotlight {
+    position: relative;
+  }
+  .spotlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      400px circle at var(--mx, 50%) var(--my, 30%),
+      rgba(109,93,251,.18),
+      transparent 55%
+    );
+    pointer-events: none;
+    transition: background .2s ease;
+  }
+
+  /* Marquee */
+  .marquee {
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 2.5rem;
+    width: max-content;
+    animation: marquee 35s linear infinite;
+  }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* Subtle pulse for the brand dot */
+  .brand-dot {
+    position: relative;
+  }
+  .brand-dot::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: inherit;
+    background: radial-gradient(circle, rgba(109,93,251,.6), transparent 70%);
+    opacity: .55;
+    animation: pulse 2.6s ease-in-out infinite;
+    z-index: -1;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(.85); opacity: .35; }
+    50%      { transform: scale(1.15); opacity: .65; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }

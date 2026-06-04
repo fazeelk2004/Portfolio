@@ -1,0 +1,96 @@
+---
+import { profile } from '@/data/profile';
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path === href || path.startsWith(href + '/');
+---
+
+<header
+  class="sticky top-0 z-50 backdrop-blur-md bg-bg/70 border-b border-white/[0.05]"
+>
+  <div class="container-page flex items-center justify-between h-16">
+    <a href="/" class="flex items-center gap-2 font-display font-semibold tracking-tight">
+      <span
+        class="brand-dot inline-block h-7 w-7 rounded-lg bg-gradient-to-br from-primary to-secondary
+          shadow-glow"
+        aria-hidden="true"
+      ></span>
+      <span class="text-text">{profile.name}</span>
+    </a>
+
+    <nav aria-label="Primary" class="hidden md:flex items-center gap-1">
+      {links.map((l) => (
+        <a
+          href={l.href}
+          aria-current={isActive(l.href) ? 'page' : undefined}
+          class:list={[
+            'link-underline px-2 py-1 mx-1 text-sm transition-colors',
+            isActive(l.href) ? 'text-text' : 'text-muted hover:text-text',
+          ]}
+        >
+          {l.label}
+        </a>
+      ))}
+      <a href="/projects" class="btn-primary ml-3" data-magnetic data-arrow>
+        View Projects <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </nav>
+
+    <button
+      id="nav-toggle"
+      type="button"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg
+        border border-white/[0.08] text-text"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M3 6h18M3 12h18M3 18h18" />
+      </svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu" hidden class="md:hidden border-t border-white/[0.05] bg-bg/95">
+    <nav aria-label="Mobile" class="container-page py-4 flex flex-col gap-1">
+      {links.map((l) => (
+        <a
+          href={l.href}
+          aria-current={isActive(l.href) ? 'page' : undefined}
+          class:list={[
+            'link-underline px-3 py-3 text-base w-fit',
+            isActive(l.href) ? 'text-text' : 'text-muted',
+          ]}
+        >
+          {l.label}
+        </a>
+      ))}
+      <a href="/projects" class="btn-primary mt-2 w-full">View Projects</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const setup = () => {
+    const btn = document.getElementById('nav-toggle');
+    const menu = document.getElementById('mobile-menu');
+    if (!btn || !menu) return;
+    const toggle = () => {
+      const open = !menu.hasAttribute('hidden');
+      if (open) menu.setAttribute('hidden', '');
+      else menu.removeAttribute('hidden');
+      btn.setAttribute('aria-expanded', String(!open));
+    };
+    btn.addEventListener('click', toggle);
+  };
+  setup();
+  document.addEventListener('astro:page-load', setup);
+</script>

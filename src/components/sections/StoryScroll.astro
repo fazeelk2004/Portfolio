@@ -1,0 +1,411 @@
+---
+const stages = [
+  {
+    n: '01',
+    title: 'Design Thinking',
+    body: 'Shape the product idea, the user, and the journey before opening the editor.',
+    accent: '#6D5DFB',
+    icon: 'M4 19.5V6a2 2 0 012-2h8l6 6v9.5a2 2 0 01-2 2H6a2 2 0 01-2-2zM14 4v6h6',
+    artifact: 'wireframe' as const,
+  },
+  {
+    n: '02',
+    title: 'Frontend UI',
+    body: 'Build a clean, responsive React/Tailwind interface with accessible components.',
+    accent: '#7BD7FF',
+    icon: 'M3 4h18v12H3zM8 20h8M12 16v4',
+    artifact: 'ui' as const,
+  },
+  {
+    n: '03',
+    title: 'Backend & API',
+    body: 'Design REST endpoints in Node/Express or Rails — predictable, validated, documented.',
+    accent: '#00D4FF',
+    icon: 'M4 6h16M4 12h16M4 18h10',
+    artifact: 'api' as const,
+  },
+  {
+    n: '04',
+    title: 'Database & Auth',
+    body: 'Model data in MongoDB or SQL; lock the app down with JWT or Firebase Auth.',
+    accent: '#A57BFF',
+    icon: 'M4 7c0-1.66 3.58-3 8-3s8 1.34 8 3-3.58 3-8 3-8-1.34-8-3zM4 7v10c0 1.66 3.58 3 8 3s8-1.34 8-3V7M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3',
+    artifact: 'db' as const,
+  },
+  {
+    n: '05',
+    title: 'Deployment & Polish',
+    body: 'Ship to Vercel/Netlify/Render, monitor, and iterate on the rough edges.',
+    accent: '#F59E0B',
+    icon: 'M5 12h14M12 5l7 7-7 7',
+    artifact: 'deploy' as const,
+  },
+];
+
+const apiBody = '{ "userId": "u_8f...", "items": [...] }';
+
+const outerStyle = `height: ${stages.length * 100}vh;`;
+---
+
+<section class="section py-0 sm:py-0" aria-labelledby="story-heading">
+  <div class="container-page reveal">
+    <p class="eyebrow mb-4">From Design to Full-Stack Builds</p>
+    <h2 id="story-heading" class="text-display-md font-display font-bold">
+      How a project moves from idea to production.
+    </h2>
+    <p class="text-muted mt-4 max-w-2xl">
+      A simple, repeatable process — the same one I use across MERN, Rails, and frontend-only builds.
+    </p>
+  </div>
+
+  <div class="story-outer mt-14 md:mt-20" style={outerStyle}>
+    <div class="story-sticky">
+      <div class="story-track" data-story-track>
+        {stages.map((s, i) => (
+          <article
+            class="story-panel card-hover glass-strong"
+            data-story-panel
+            data-index={i}
+            style={`--accent: ${s.accent};`}
+          >
+            <div class="story-glow" aria-hidden="true"></div>
+
+            <header class="story-header">
+              <div class="story-fade">
+                <p class="font-mono text-xs text-muted">STAGE</p>
+                <p class="font-mono text-2xl mt-1 story-num">{s.n}</p>
+              </div>
+              <div class="story-fade story-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d={s.icon} />
+                </svg>
+              </div>
+            </header>
+
+            <div>
+              <h3 class="story-fade font-display text-3xl sm:text-4xl font-bold leading-tight">{s.title}</h3>
+              <p class="story-fade text-muted mt-3 text-base leading-relaxed">{s.body}</p>
+            </div>
+
+            <div class="story-fade story-artifact-wrap">
+              {s.artifact === 'wireframe' && (
+                <div class="glass story-artifact story-wire">
+                  <div class="wire-row col-span-2"></div>
+                  <div class="wire-row"></div>
+                  <div class="wire-line col-span-3"></div>
+                  <div class="wire-line col-span-2"></div>
+                  <div class="wire-bar"></div>
+                </div>
+              )}
+              {s.artifact === 'ui' && (
+                <div class="glass story-artifact story-ui">
+                  <div class="ui-block"></div>
+                  <div class="ui-lines">
+                    <div class="ui-l1"></div>
+                    <div class="ui-l2"></div>
+                    <div class="ui-l3"></div>
+                  </div>
+                  <span class="ui-pill">Hover</span>
+                </div>
+              )}
+              {s.artifact === 'api' && (
+                <div class="glass story-artifact story-api">
+                  <div><span class="api-accent">POST</span> /api/orders</div>
+                  <div class="api-body">{apiBody}</div>
+                  <div><span class="api-accent">→ 201</span> <span class="api-text">Created</span></div>
+                </div>
+              )}
+              {s.artifact === 'db' && (
+                <div class="glass story-artifact story-db">
+                  <div class="db-tables">
+                    <span class="db-tag">users</span>
+                    <span class="db-tag">orders</span>
+                    <span class="db-tag">products</span>
+                  </div>
+                  <svg viewBox="0 0 80 60" class="db-svg" aria-hidden="true">
+                    <path d="M10 12 L60 30" stroke={s.accent} stroke-width="1" fill="none" />
+                    <path d="M10 30 L60 30" stroke={s.accent} stroke-width="1" fill="none" />
+                    <path d="M10 48 L60 30" stroke={s.accent} stroke-width="1" fill="none" />
+                    <circle cx="60" cy="30" r="6" fill={s.accent} fill-opacity="0.3" stroke={s.accent} />
+                  </svg>
+                </div>
+              )}
+              {s.artifact === 'deploy' && (
+                <div class="glass story-artifact story-deploy">
+                  <div class="deploy-status">
+                    <span class="deploy-dot"></span>
+                    <span class="deploy-label">production · live</span>
+                  </div>
+                  <div class="deploy-tags">
+                    <span class="deploy-tag">Vercel</span>
+                    <span class="deploy-tag">Netlify</span>
+                    <span class="deploy-tag">Render</span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div class="story-progress" aria-hidden="true">
+              {stages.map((_, j) => (
+                <span class={`progress-bar ${j <= i ? 'progress-on' : 'progress-off'}`}></span>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const init = () => {
+    const outer = document.querySelector<HTMLElement>('.story-outer');
+    const track = document.querySelector<HTMLElement>('[data-story-track]');
+    if (!outer || !track) return;
+    const panels = Array.from(track.querySelectorAll<HTMLElement>('[data-story-panel]'));
+    if (!panels.length) return;
+
+    let scheduled = false;
+
+    const update = () => {
+      scheduled = false;
+      const rect = outer.getBoundingClientRect();
+      const scrollable = outer.offsetHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+      const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
+      const distance = Math.max(0, track.scrollWidth - window.innerWidth);
+      track.style.transform = `translate3d(${-progress * distance}px, 0, 0)`;
+
+      panels.forEach((panel) => {
+        if (panel.classList.contains('is-revealed')) return;
+        const r = panel.getBoundingClientRect();
+        if (r.left < window.innerWidth * 0.9 && r.right > window.innerWidth * 0.05) {
+          panel.classList.add('is-revealed');
+        }
+      });
+    };
+
+    const onScroll = () => {
+      if (scheduled) return;
+      scheduled = true;
+      requestAnimationFrame(update);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  };
+
+  if (document.readyState !== 'loading') init();
+  else document.addEventListener('DOMContentLoaded', init);
+  document.addEventListener('astro:page-load', init);
+</script>
+
+<style>
+  .story-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  .story-track {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    height: 100%;
+    padding-left: 8vw;
+    padding-right: 8vw;
+    will-change: transform;
+  }
+
+  .story-panel {
+    flex-shrink: 0;
+    width: 78vw;
+    height: 68%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+
+  @media (min-width: 640px) {
+    .story-panel { width: 60vw; padding: 2.5rem; }
+  }
+
+  @media (min-width: 1024px) {
+    .story-panel { width: 42vw; }
+  }
+
+  .story-glow {
+    position: absolute;
+    top: -6rem;
+    right: -6rem;
+    width: 16rem;
+    height: 16rem;
+    border-radius: 9999px;
+    filter: blur(48px);
+    pointer-events: none;
+    background: radial-gradient(circle, color-mix(in srgb, var(--accent) 20%, transparent), transparent 65%);
+  }
+
+  .story-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .story-num { color: var(--accent); }
+
+  .story-icon {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+  }
+
+  .story-artifact-wrap { margin-top: 1.5rem; }
+
+  .story-artifact {
+    height: 7rem;
+    padding: 1rem;
+  }
+
+  .story-wire {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+  .wire-row { background: rgba(255,255,255,0.06); border-radius: 0.25rem; }
+  .wire-row.col-span-2 { grid-column: span 2; }
+  .wire-line { height: 0.75rem; background: rgba(255,255,255,0.04); border-radius: 0.25rem; align-self: start; }
+  .wire-line.col-span-3 { grid-column: span 3; }
+  .wire-line.col-span-2 { grid-column: span 2; }
+  .wire-bar {
+    background: color-mix(in srgb, var(--accent) 35%, transparent);
+    height: 0.75rem;
+    border-radius: 0.25rem;
+    align-self: start;
+  }
+
+  .story-ui {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .ui-block {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 0.75rem;
+    background: linear-gradient(135deg, var(--accent), #6D5DFB);
+  }
+  .ui-lines { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+  .ui-l1 { height: 0.75rem; border-radius: 0.25rem; background: rgba(255,255,255,0.08); width: 60%; }
+  .ui-l2 { height: 0.5rem; border-radius: 0.25rem; background: rgba(255,255,255,0.05); width: 80%; }
+  .ui-l3 { height: 0.5rem; border-radius: 0.25rem; background: rgba(255,255,255,0.05); width: 40%; }
+  .ui-pill {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 10px;
+    font-weight: 500;
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+    color: var(--accent);
+  }
+
+  .story-api {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    line-height: 1.6;
+    color: rgb(var(--muted, 156 163 175));
+    overflow: hidden;
+  }
+  .story-api .api-accent { color: var(--accent); }
+  .story-api .api-body { color: var(--text, white); }
+  .story-api .api-text { color: var(--text, white); }
+
+  .story-db { display: flex; align-items: center; gap: 1rem; }
+  .db-tables { display: flex; flex-direction: column; gap: 0.25rem; }
+  .db-tag {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    background: rgba(255,255,255,0.05);
+    color: rgb(156 163 175);
+  }
+  .db-svg { flex: 1; height: 100%; }
+
+  .story-deploy {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .deploy-status { display: flex; align-items: center; gap: 0.5rem; }
+  .deploy-dot {
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 9999px;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+  .deploy-label { font-family: ui-monospace, monospace; font-size: 12px; }
+  .deploy-tags { display: flex; gap: 0.375rem; }
+  .deploy-tag {
+    font-family: ui-monospace, monospace;
+    font-size: 10px;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    background: rgba(255,255,255,0.05);
+    color: rgb(156 163 175);
+  }
+
+  @keyframes pulse {
+    50% { opacity: 0.5; }
+  }
+
+  .story-progress {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+  .progress-bar {
+    height: 2px;
+    flex: 1;
+    border-radius: 9999px;
+    transition: background-color 0.3s ease;
+  }
+  .progress-on { background: var(--accent); }
+  .progress-off { background: rgba(255,255,255,0.08); }
+
+  .story-fade {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .story-panel.is-revealed .story-fade {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .story-panel.is-revealed .story-fade:nth-of-type(2) { transition-delay: 0.08s; }
+  .story-panel.is-revealed .story-fade:nth-of-type(3) { transition-delay: 0.16s; }
+  .story-panel.is-revealed .story-fade:nth-of-type(4) { transition-delay: 0.24s; }
+  .story-panel.is-revealed .story-fade:nth-of-type(5) { transition-delay: 0.32s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .story-outer { height: auto !important; }
+    .story-sticky { position: static; height: auto; overflow: visible; }
+    .story-track { flex-wrap: wrap; transform: none !important; }
+    .story-fade { opacity: 1; transform: none; }
+  }
+</style>

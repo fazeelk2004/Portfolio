@@ -1,0 +1,103 @@
+---
+import { profile } from '@/data/profile';
+---
+
+<section class="section" id="contact">
+  <div class="container-page">
+    <div class="glass-strong p-8 sm:p-12 reveal relative overflow-hidden">
+      <div class="absolute -top-20 -right-20 h-64 w-64 rounded-full bg-primary/20 blur-3xl"
+        aria-hidden="true"></div>
+      <div class="absolute -bottom-24 -left-10 h-64 w-64 rounded-full bg-secondary/15 blur-3xl"
+        aria-hidden="true"></div>
+
+      <div class="relative grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <p class="eyebrow mb-4">Get in touch</p>
+          <h2 class="text-display-md font-display font-bold leading-tight">
+            Have a project, role, or collaboration in mind?
+          </h2>
+          <p class="text-muted mt-4 max-w-md">
+            I'm open to internships, junior roles, and freelance work. Drop a message
+            and I'll get back to you.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href={`mailto:${profile.email}`} class="btn-primary" data-magnetic>Email Me</a>
+            <a href={profile.linkedin} target="_blank" rel="noopener" class="btn-ghost">LinkedIn</a>
+            <a href={profile.github} target="_blank" rel="noopener" class="btn-outline">GitHub</a>
+          </div>
+        </div>
+
+        {/*
+          Contact form — Netlify Forms by default.
+          To switch to Formspree:
+            - Replace action="" / data-netlify with action="https://formspree.io/f/YOUR_ID"
+            - Remove data-netlify, name="contact", and the hidden "form-name" input.
+        */}
+        <form
+          id="contact-form"
+          name="contact"
+          class="grid gap-3"
+          data-email={profile.email}
+        >
+          <p class="hidden">
+            <label>Don't fill this: <input name="bot-field" /></label>
+          </p>
+
+          <label class="text-sm text-muted">
+            <span class="sr-only">Your name</span>
+            <input
+              type="text"
+              name="name"
+              required
+              placeholder="Your name"
+              class="w-full bg-bg/60 border border-white/[0.08] rounded-lg px-4 py-3 text-text
+                placeholder:text-muted/70 focus:border-primary/60"
+            />
+          </label>
+          <label class="text-sm text-muted">
+            <span class="sr-only">Email address</span>
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="Email address"
+              class="w-full bg-bg/60 border border-white/[0.08] rounded-lg px-4 py-3 text-text
+                placeholder:text-muted/70 focus:border-primary/60"
+            />
+          </label>
+          <label class="text-sm text-muted">
+            <span class="sr-only">Message</span>
+            <textarea
+              name="message"
+              required
+              rows="4"
+              placeholder="A short message..."
+              class="w-full bg-bg/60 border border-white/[0.08] rounded-lg px-4 py-3 text-text
+                placeholder:text-muted/70 focus:border-primary/60 resize-none"
+            ></textarea>
+          </label>
+          <button type="submit" class="btn-primary justify-self-start">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const name = String(data.get('name') ?? '').trim();
+      const email = String(data.get('email') ?? '').trim();
+      const message = String(data.get('message') ?? '').trim();
+      const to = form.dataset.email ?? '';
+
+      const subject = `Portfolio contact from ${name}`;
+      const body = `${message}\n\n— ${name}\n${email}`;
+      const href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = href;
+    });
+  }
+</script>

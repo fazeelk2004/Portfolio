@@ -1,0 +1,75 @@
+---
+import '@/styles/global.css';
+import { ViewTransitions } from 'astro:transitions';
+import SEO from '@/components/seo/SEO.astro';
+import Nav from '@/components/layout/Nav.astro';
+import Footer from '@/components/layout/Footer.astro';
+import FloatingCV from '@/components/layout/FloatingCV.astro';
+import { personSchema, websiteSchema } from '@/utils/jsonld';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  type?: 'website' | 'article' | 'profile';
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const props = Astro.props;
+const baseSchemas = [personSchema(), websiteSchema()];
+const allSchemas = props.jsonLd
+  ? [...baseSchemas, ...(Array.isArray(props.jsonLd) ? props.jsonLd : [props.jsonLd])]
+  : baseSchemas;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+    <SEO {...props} jsonLd={allSchemas} />
+    <ViewTransitions />
+  </head>
+  <body class="min-h-screen antialiased">
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <div
+      aria-hidden="true"
+      class="pointer-events-none fixed inset-0 -z-10 bg-radial-fade"
+    ></div>
+
+    <Nav />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <FloatingCV />
+
+    <script>
+      import { initLenis, initScrollReveals, initMagneticButtons, cleanup } from '@/utils/animations';
+
+      const boot = () => {
+        initLenis();
+        initScrollReveals();
+        initMagneticButtons();
+      };
+
+      boot();
+
+      document.addEventListener('astro:before-swap', () => cleanup());
+      document.addEventListener('astro:page-load', () => boot());
+    </script>
+  </body>
+</html>

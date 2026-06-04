@@ -1,0 +1,28 @@
+---
+import { faqs } from '@/data/faq';
+---
+
+<section class="section" aria-labelledby="faq-heading">
+  <div class="container-page">
+    <div class="reveal max-w-2xl">
+      <p class="eyebrow mb-4">FAQ</p>
+      <h2 id="faq-heading" class="text-display-md font-display font-bold">Common questions.</h2>
+    </div>
+
+    <div class="mt-10 grid md:grid-cols-2 gap-3">
+      {faqs.map((f) => (
+        <details class="glass p-5 reveal group">
+          <summary class="cursor-pointer list-none flex justify-between items-center gap-4">
+            <span class="font-medium text-text">{f.q}</span>
+            <span
+              class="h-6 w-6 inline-flex items-center justify-center rounded-full bg-white/[0.06]
+                text-muted group-open:rotate-45 transition-transform"
+              aria-hidden="true"
+            >+</span>
+          </summary>
+          <p class="text-sm text-muted leading-relaxed mt-3">{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

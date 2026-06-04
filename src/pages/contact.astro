@@ -1,0 +1,28 @@
+---
+import Base from '@/layouts/Base.astro';
+import ContactCTA from '@/components/sections/ContactCTA.astro';
+import { profile } from '@/data/profile';
+import { breadcrumbSchema } from '@/utils/jsonld';
+
+const crumbs = breadcrumbSchema([
+  { name: 'Home', url: profile.siteUrl + '/' },
+  { name: 'Contact', url: profile.siteUrl + '/contact' },
+]);
+---
+
+<Base
+  title="Contact"
+  description={`Get in touch with ${profile.name} — open to internships, junior full-stack roles, and freelance projects.`}
+  jsonLd={crumbs}
+>
+  <section class="section pb-0">
+    <div class="container-page max-w-3xl">
+      <p class="eyebrow mb-4">Contact</p>
+      <h1 class="text-display-lg font-display font-bold">Let's build something practical.</h1>
+      <p class="mt-4 text-muted text-lg max-w-xl">
+        Drop a message about a role, a project, or a collaboration. I usually reply within a day.
+      </p>
+    </div>
+  </section>
+  <ContactCTA />
+</Base>

@@ -1,0 +1,102 @@
+---
+import type { Project } from '@/data/projects';
+import Badge from './Badge.astro';
+import { iconForTech } from '@/utils/techIcons';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  project: Project;
+  priority?: boolean;
+}
+const { project, priority = false } = Astro.props;
+const isCollab = project.ownership === 'Collaborative Project';
+---
+
+<article
+  class="card-hover group reveal glass overflow-hidden flex flex-col hover:border-white/15 hover:-translate-y-1
+    transition-all duration-300"
+  data-categories={project.categories.join(',')}
+>
+  <a href={`/projects/${project.slug}`} class="block relative aspect-[16/10] overflow-hidden bg-soft">
+    <img
+      src={project.image}
+      alt={`${project.title} project mockup`}
+      width="1280"
+      height="800"
+      loading={priority ? 'eager' : 'lazy'}
+      decoding="async"
+      class="w-full h-full object-cover opacity-90 group-hover:scale-[1.03] group-hover:opacity-100
+        transition-all duration-500"
+      onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,#161D2D,#0B0F19)';"
+    />
+    <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+      <Badge tone={isCollab ? 'collab' : 'owned'}>
+        {project.ownership}
+      </Badge>
+    </div>
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-bg/80 via-bg/0 to-bg/0 opacity-0
+        group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4"
+      aria-hidden="true"
+    >
+      <span
+        class="inline-flex items-center gap-2 text-sm text-text bg-white/[0.08] backdrop-blur
+          border border-white/[0.12] rounded-full px-3.5 py-1.5 translate-y-2
+          group-hover:translate-y-0 transition-transform duration-300"
+      >
+        Open case study <span aria-hidden="true">→</span>
+      </span>
+    </div>
+  </a>
+
+  <div class="p-5 flex flex-col gap-3 flex-1">
+    <div class="flex items-center justify-between gap-3 text-xs text-muted">
+      <span>{project.type}</span>
+      <span>{project.year}</span>
+    </div>
+
+    <h3 class="font-display text-xl font-semibold leading-snug">
+      <a href={`/projects/${project.slug}`} class="hover:text-secondary transition-colors">
+        {project.title}
+      </a>
+    </h3>
+
+    <p class="text-sm text-muted leading-relaxed">{project.summary}</p>
+
+    <ul class="flex flex-wrap gap-1.5 mt-1">
+      {project.tech.slice(0, 5).map((t) => {
+        const ic = iconForTech(t);
+        return (
+          <li class="chip">
+            {ic && <Icon name={ic} class="h-3.5 w-3.5" aria-hidden="true" />}
+            <span>{t}</span>
+          </li>
+        );
+      })}
+    </ul>
+
+    <div class="mt-auto pt-3 flex items-center gap-4 text-sm">
+      <a href={`/projects/${project.slug}`} class="link-underline text-secondary">Case study →</a>
+      {project.github && (
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noopener"
+          class="link-underline text-muted hover:text-text"
+        >
+          GitHub
+        </a>
+      )}
+      {project.live && (
+        <a
+          href={project.live}
+          target="_blank"
+          rel="noopener"
+          class="link-underline text-muted hover:text-text"
+        >
+          Live
+        </a>
+      )}
+    </div>
+  </div>
+</article>

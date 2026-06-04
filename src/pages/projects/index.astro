@@ -1,0 +1,91 @@
+---
+import Base from '@/layouts/Base.astro';
+import ProjectCard from '@/components/ui/ProjectCard.astro';
+import { projects, projectCategories } from '@/data/projects';
+import { profile } from '@/data/profile';
+import { breadcrumbSchema } from '@/utils/jsonld';
+
+const crumbs = breadcrumbSchema([
+  { name: 'Home', url: profile.siteUrl + '/' },
+  { name: 'Projects', url: profile.siteUrl + '/projects' },
+]);
+
+const filters = ['All', ...projectCategories] as const;
+---
+
+<Base
+  title="Projects"
+  description="Selected full-stack, frontend, AI, and business software projects by Fazeel Khan."
+  jsonLd={crumbs}
+>
+  <section class="section pb-12">
+    <div class="container-page max-w-3xl">
+      <p class="eyebrow mb-4">Projects</p>
+      <h1 class="text-display-lg font-display font-bold">Things I've built and contributed to.</h1>
+      <p class="mt-4 text-muted text-lg">
+        A mix of owned projects and collaborative work — full-stack apps, AI tooling,
+        business software, and frontend builds.
+      </p>
+    </div>
+
+    <div class="container-page mt-10">
+      <div role="tablist" aria-label="Project filters" class="flex flex-wrap gap-2" data-filters>
+        {filters.map((f, i) => (
+          <button
+            type="button"
+            role="tab"
+            data-filter={f}
+            aria-selected={i === 0 ? 'true' : 'false'}
+            class:list={[
+              'px-3.5 py-1.5 rounded-full text-sm border transition-colors',
+              i === 0
+                ? 'bg-primary text-white border-primary'
+                : 'bg-white/[0.04] text-muted border-white/[0.08] hover:text-text',
+            ]}
+          >
+            {f}
+          </button>
+        ))}
+      </div>
+
+      <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5" data-grid>
+        {projects.map((p, i) => <ProjectCard project={p} priority={i < 3} />)}
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const setup = () => {
+      const filtersEl = document.querySelector<HTMLElement>('[data-filters]');
+      const grid = document.querySelector<HTMLElement>('[data-grid]');
+      if (!filtersEl || !grid) return;
+      const cards = grid.querySelectorAll<HTMLElement>('[data-categories]');
+
+      filtersEl.addEventListener('click', (e) => {
+        const btn = (e.target as HTMLElement).closest('[data-filter]') as HTMLElement | null;
+        if (!btn) return;
+        const filter = btn.dataset.filter || 'All';
+
+        filtersEl.querySelectorAll('[data-filter]').forEach((b) => {
+          const el = b as HTMLElement;
+          const active = el === btn;
+          el.setAttribute('aria-selected', String(active));
+          el.classList.toggle('bg-primary', active);
+          el.classList.toggle('text-white', active);
+          el.classList.toggle('border-primary', active);
+          el.classList.toggle('bg-white/[0.04]', !active);
+          el.classList.toggle('text-muted', !active);
+          el.classList.toggle('border-white/[0.08]', !active);
+        });
+
+        cards.forEach((card) => {
+          const cats = (card.dataset.categories || '').split(',');
+          const show = filter === 'All' || cats.includes(filter);
+          card.style.display = show ? '' : 'none';
+        });
+      });
+    };
+    setup();
+    document.addEventListener('astro:page-load', setup);
+  </script>
+</Base>

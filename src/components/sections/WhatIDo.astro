@@ -1,0 +1,63 @@
+---
+const cards = [
+  {
+    title: 'Full-Stack Web Apps',
+    body: 'End-to-end MERN and Rails apps — from data models to UI, with real auth, real APIs, and real workflows.',
+    icon: 'M4 6h16M4 12h16M4 18h10',
+  },
+  {
+    title: 'Responsive UI Development',
+    body: 'Pixel-considered React + Tailwind interfaces that adapt cleanly across mobile, tablet, and desktop.',
+    icon: 'M3 4h18v12H3zM8 20h8M12 16v4',
+  },
+  {
+    title: 'API Integration',
+    body: 'REST APIs, third-party services, payment integrations, and predictable data layers.',
+    icon: 'M5 12h14M12 5l7 7-7 7',
+  },
+  {
+    title: 'Authentication & Protected Routes',
+    body: 'JWT, Firebase Auth, session handling, and role-aware route protection done correctly.',
+    icon: 'M12 11V7a4 4 0 118 0v4M5 11h14v10H5z',
+  },
+  {
+    title: 'E-commerce & Checkout Flows',
+    body: 'Stripe checkout, cart logic, dynamic pricing, and admin tooling built around real products.',
+    icon: 'M6 6h15l-1.5 9h-12zM6 6L5 3H2M9 21a1 1 0 100-2 1 1 0 000 2zM18 21a1 1 0 100-2 1 1 0 000 2z',
+  },
+  {
+    title: 'UI/UX & Graphic Design',
+    body: 'A graphic design background that helps me ship interfaces that feel considered, not generic.',
+    icon: 'M4 12l8-8 8 8-8 8z M12 4v16',
+  },
+];
+---
+
+<section class="section">
+  <div class="container-page">
+    <div class="max-w-2xl reveal">
+      <p class="eyebrow mb-4">What I Do</p>
+      <h2 class="text-display-md font-display font-bold">Practical product work, end to end.</h2>
+      <p class="text-muted mt-4">
+        I focus on the things that actually ship products — clean UI, working APIs, secure auth,
+        and the small details that make an interface feel intentional.
+      </p>
+    </div>
+
+    <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {cards.map((c) => (
+        <div class="card-hover glass p-6 reveal hover:-translate-y-1 hover:border-white/15 transition-all duration-300 group">
+          <div class="h-10 w-10 rounded-xl bg-primary/15 text-primary flex items-center justify-center mb-4
+            group-hover:bg-primary/25 group-hover:text-secondary transition-colors duration-300">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+              stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d={c.icon} />
+            </svg>
+          </div>
+          <h3 class="font-display text-lg font-semibold">{c.title}</h3>
+          <p class="text-sm text-muted leading-relaxed mt-2">{c.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

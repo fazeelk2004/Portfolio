@@ -1,0 +1,65 @@
+---
+import { profile } from "@/data/profile";
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-white/[0.06] mt-20">
+  <div class="container-page py-14 grid gap-10 md:grid-cols-3">
+    <div>
+      <p class="font-display text-lg font-semibold">{profile.name}</p>
+      <p class="text-muted text-sm mt-1">{profile.title}</p>
+      <p class="text-muted text-sm mt-3">{profile.location}</p>
+    </div>
+
+    <nav aria-label="Footer" class="text-sm">
+      <p class="text-text font-medium mb-3">Sitemap</p>
+      <ul class="space-y-2 text-muted">
+        <li><a href="/" class="link-underline hover:text-text">Home</a></li>
+        <li>
+          <a href="/projects" class="link-underline hover:text-text"
+            >Projects</a>
+        </li>
+        <li>
+          <a href="/about" class="link-underline hover:text-text">About</a>
+        </li>
+        <li>
+          <a href="/contact" class="link-underline hover:text-text">Contact</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="text-sm">
+      <p class="text-text font-medium mb-3">Connect</p>
+      <ul class="space-y-2 text-muted">
+        <li>
+          <a
+            href={`mailto:${profile.email}`}
+            class="link-underline hover:text-text">{profile.email}</a>
+        </li>
+        <li>
+          <a
+            href={profile.github}
+            class="link-underline hover:text-text"
+            rel="noopener"
+            target="_blank">GitHub</a>
+        </li>
+        <li>
+          <a
+            href={profile.linkedin}
+            class="link-underline hover:text-text"
+            rel="noopener"
+            target="_blank">LinkedIn</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/[0.06]">
+    <div
+      class="container-page py-5 flex flex-col sm:flex-row gap-3 justify-between items-center
+      text-xs text-muted"
+    >
+      <p>© {year} {profile.name}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

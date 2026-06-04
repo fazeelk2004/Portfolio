@@ -1,0 +1,36 @@
+---
+import { skillGroups } from '@/data/skills';
+import { iconForTech } from '@/utils/techIcons';
+import { Icon } from 'astro-icon/components';
+---
+
+<section class="section">
+  <div class="container-page">
+    <div class="reveal max-w-2xl">
+      <p class="eyebrow mb-4">Skills</p>
+      <h2 class="text-display-md font-display font-bold">Tools I reach for, grouped by purpose.</h2>
+      <p class="text-muted mt-4">
+        A working stack rather than a buzzword list — each item below is something I've shipped with.
+      </p>
+    </div>
+
+    <div class="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {skillGroups.map((g) => (
+        <div class="card-hover glass p-6 reveal">
+          <p class="text-sm font-medium text-text">{g.title}</p>
+          <ul class="mt-4 flex flex-wrap gap-2">
+            {g.items.map((s) => {
+              const icon = iconForTech(s);
+              return (
+                <li class="chip">
+                  {icon && <Icon name={icon} class="h-3.5 w-3.5" aria-hidden="true" />}
+                  <span>{s}</span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,136 @@
+---
+import { profile } from "@/data/profile";
+import HeroSceneWrapper from "@/components/three/HeroSceneWrapper.astro";
+import Button from "@/components/ui/Button.astro";
+import { iconForTech } from "@/utils/techIcons";
+import { Icon } from "astro-icon/components";
+
+const techMarquee = [
+  "React",
+  "TypeScript",
+  "Node.js",
+  "Express",
+  "MongoDB",
+  "Ruby on Rails",
+  "Firebase",
+  "Tailwind CSS",
+  "Redux Toolkit",
+  "Stripe",
+  "JWT",
+  "REST APIs",
+  "Vite",
+  "Next.js",
+  "Astro",
+  "Three.js",
+];
+---
+
+<section
+  class="spotlight relative overflow-hidden pt-12 pb-20 sm:pb-32"
+  data-spotlight
+>
+  <div class="absolute inset-0 -z-10 grid-bg opacity-30" aria-hidden="true">
+  </div>
+  <img
+    src="/assets/hero/developer-workspace-3d.webp"
+    alt=""
+    aria-hidden="true"
+    class="absolute -z-10 inset-y-0 right-0 w-1/2 object-cover opacity-[0.07] mix-blend-screen
+      pointer-events-none hidden lg:block"
+    onerror="this.remove()"
+  />
+
+  <div class="container-page relative">
+    <div
+      class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 lg:gap-12 items-center"
+    >
+      <div class="relative z-10">
+        <p class="eyebrow mb-5">{profile.title}</p>
+        <h1 class="text-display-lg font-display font-bold leading-[1.02]">
+          I build clean, responsive
+          <span class="text-gradient">web applications</span>
+          with practical full-stack functionality.
+        </h1>
+        <p
+          class="mt-6 text-base sm:text-lg text-muted max-w-xl leading-relaxed"
+        >
+          Computer Science student from Multan, focused on React, Node.js, Ruby
+          on Rails, MongoDB, Firebase, authentication systems, dashboards,
+          e-commerce flows, and UI/UX-focused web experiences.
+        </p>
+
+        <div class="mt-8 flex flex-wrap grid grid-cols-4 items-center gap-3">
+          <Button href="/projects" variant="primary" magnetic>
+            View Projects</Button
+          >
+          <Button href="/contact" variant="ghost" arrow>Contact Me</Button>
+          <Button href={profile.github} variant="outline" external
+            >GitHub ↗</Button
+          >
+          <Button href={profile.linkedin} variant="outline" external
+            >LinkedIn ↗</Button
+          >
+        </div>
+      </div>
+
+      <div class="relative h-[420px] sm:h-[520px] lg:h-[600px]">
+        <HeroSceneWrapper />
+      </div>
+    </div>
+
+    <dl class="mt-12 flex grid grid-cols-4 gap-4 w-full">
+      {
+        profile.stats.map((s) => (
+          <div class="glass px-4 py-3">
+            <dt class="text-[11px] uppercase tracking-wider text-muted">
+              {s.label}
+            </dt>
+            <dd class="font-display text-xl font-semibold mt-1 text-text">
+              {s.value}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <div class="mt-16 marquee" aria-hidden="true">
+      <div
+        class="marquee-track text-sm text-muted/80 font-mono uppercase tracking-[0.16em]"
+      >
+        {
+          [...techMarquee, ...techMarquee].map((t) => {
+            const ic = iconForTech(t);
+            return (
+              <span class="flex items-center gap-3">
+                {ic && (
+                  <Icon
+                    name={ic}
+                    class="h-4 w-4 text-text/80"
+                    aria-hidden="true"
+                  />
+                )}
+                <span>{t}</span>
+                <span class="text-primary/40">·</span>
+              </span>
+            );
+          })
+        }
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const setupSpotlight = () => {
+      const el = document.querySelector<HTMLElement>("[data-spotlight]");
+      if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+        return;
+      el.addEventListener("pointermove", (e) => {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+        el.style.setProperty("--my", `${e.clientY - r.top}px`);
+      });
+    };
+    setupSpotlight();
+    document.addEventListener("astro:page-load", setupSpotlight);
+  </script>
+</section>
