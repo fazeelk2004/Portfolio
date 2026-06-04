@@ -1,5 +1,5 @@
 ---
-import HeroScene from './HeroScene';
+import HeroScene from "./HeroScene";
 ---
 
 <div class="absolute inset-0" data-hero-3d>
@@ -14,42 +14,51 @@ import HeroScene from './HeroScene';
       class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
         h-[60%] aspect-square rounded-3xl glass-strong rotate-3 animate-float"
     >
-      <div class="absolute inset-4 rounded-2xl bg-gradient-to-br from-primary/30 to-secondary/20"></div>
+      <div
+        class="absolute inset-4 rounded-2xl bg-gradient-to-br from-primary/30 to-secondary/20"
+      >
+      </div>
     </div>
     <div
       class="absolute left-[15%] top-[18%] h-16 w-24 rounded-xl glass animate-float"
       style="animation-delay: -2s"
-    ></div>
+    >
+    </div>
     <div
       class="absolute right-[12%] top-[28%] h-14 w-20 rounded-xl glass animate-float"
       style="animation-delay: -4s"
-    ></div>
+    >
+    </div>
     <div
       class="absolute right-[18%] bottom-[18%] h-12 w-20 rounded-xl glass animate-float"
       style="animation-delay: -1s"
-    ></div>
+    >
+    </div>
   </div>
 
   {/* Lazy-mounted 3D — replaces fallback only on capable devices */}
   <div id="hero-3d-mount" class="absolute inset-0 hidden">
-    <HeroScene client:visible />
+    <HeroScene client:only="react" />
   </div>
 </div>
 
 <script>
   const enable3D = () => {
-    if (typeof window === 'undefined') return;
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    const lowMem = (navigator as any).deviceMemory && (navigator as any).deviceMemory < 4;
+    if (typeof window === "undefined") return;
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const lowMem =
+      (navigator as any).deviceMemory && (navigator as any).deviceMemory < 4;
     if (reduce || isMobile || lowMem) return;
 
-    const mount = document.getElementById('hero-3d-mount');
-    const fallback = document.querySelector('[data-hero-fallback]');
+    const mount = document.getElementById("hero-3d-mount");
+    const fallback = document.querySelector("[data-hero-fallback]");
     if (!mount) return;
-    mount.classList.remove('hidden');
-    if (fallback) (fallback as HTMLElement).style.opacity = '0.18';
+    mount.classList.remove("hidden");
+    if (fallback) (fallback as HTMLElement).style.opacity = "0.18";
   };
   enable3D();
-  document.addEventListener('astro:page-load', enable3D);
+  document.addEventListener("astro:page-load", enable3D);
 </script>
